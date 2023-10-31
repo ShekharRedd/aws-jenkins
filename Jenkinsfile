@@ -5,7 +5,8 @@ pipeline{
             steps{
 
                 echo "========executing Build python Images========"
-                sh 'cd react | ls -l'
+                sh "cd react"
+                sh "ls -l"
                 // withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
             
                 // sh "docker build -f ~/react/Dockerfile  -t my-react:1.0 react/."
