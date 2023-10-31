@@ -6,11 +6,11 @@ pipeline{
 
                 echo "========executing Build python Images========"
                 sh "cd react && ls -l"
-                // withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-            
-                // sh "docker build -f ~/react/Dockerfile  -t my-react:1.0 react/."
-                // sh "echo $PASS | docker login -u $USER --password-stdin"
-                // sh "docker push $image"
+                withCredewithCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                sh "docker build -t my-react:1.0 ."
+                sh 'echo $USER'
+                sh "echo $PASS | docker login -u $USER --password-stdin"
+                sh "docker push $image/my-react:1.0"
                 }
             }
             
@@ -18,14 +18,19 @@ pipeline{
             steps{
                 echo "========executing Build python Images========"
                 sh "cd python && ls -l"
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                sh "docker build -t my-python:1.0 ."
+                sh 'echo $USER'
+                sh "echo $PASS | docker login -u $USER --password-stdin"
+                sh "docker push $image/my-python:1.0"
+                }
+            }
+            stage("deploying into aws ec2 instance") {
+                
+                step {
 
-                // withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                // sh "docker build -t my-react:1.0 ."
-                // sh 'echo $USER'
-                // sh "echo $PASS | docker login -u $USER --password-stdin"
-                // sh "docker push $image"
+                    echo "hello world "
                 }
             }
 }
-    
 }
