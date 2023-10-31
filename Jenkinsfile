@@ -19,6 +19,7 @@ pipeline{
                     // }
             }
         }
+        }
 
         stage("Build react image"){
             when {
