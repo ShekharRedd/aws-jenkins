@@ -10,6 +10,7 @@ pipeline{
             steps{
                 script{
                     def imageExists = sh(script: "docker inspect ${image}:${tag}", returnStatus: true) == 0
+                    currentBuild.resultIsSkip = true
                     if (imageExists) {
                         echo "Docker image ${image}:${tag} already exists. Skipping build and push."
                     } else {
@@ -20,6 +21,9 @@ pipeline{
         }
 
         stage("Build react image"){
+            when {
+                expression { currentBuild.resultIsSkip == true }
+            }
             steps{
                 echo "========executing Build react Images========"
                 // withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
