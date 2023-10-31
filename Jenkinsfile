@@ -22,7 +22,7 @@ pipeline{
 
         stage("Build react image"){
             when {
-                expression { currentBuild.resultIsSkip != true }
+                expression { currentBuild.resultIsSkip == true }
             }
             steps{
                 echo "========executing Build react Images========"
