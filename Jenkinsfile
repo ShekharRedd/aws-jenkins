@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment {
-        image = "my-rea"
+        image = "my-rect"
         tag = "1.0"
     }
     stages{
@@ -10,19 +10,19 @@ pipeline{
             steps{
                 script{
                     def imageExists = sh(script: "docker inspect ${image}:${tag}", returnStatus: true) == 0
-                    currentBuild.resultIsSkip = true
-                    if (imageExists) {
-                        echo "Docker image ${image}:${tag} already exists. Skipping build and push."
-                    } else {
-                        echo "Docker image ${image}:${tag} does not exist. Proceeding with build."
-                        }
-                    }
+                    currentBuild.resultIsSkip = imageExists ? 'ABORTED' : 'SUCCESS'
+                    // if (imageExists) {
+                    //     echo "Docker image ${image}:${tag} already exists. Skipping build and push."
+                    // } else {
+                    //     echo "Docker image ${image}:${tag} does not exist. Proceeding with build."
+                    //     }
+                    // }
             }
         }
 
         stage("Build react image"){
             when {
-                expression { currentBuild.resultIsSkip == true }
+                expression { currentBuild.resultIsSkip !='ABORTED' }
             }
             steps{
                 echo "========executing Build react Images========"
