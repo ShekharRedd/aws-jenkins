@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment {
-        image = "my-react"
+        image = "my-rea"
         tag = "1.0"
     }
     stages{
