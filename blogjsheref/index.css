@@ -1,0 +1,20 @@
+header {
+  background-color: aqua;
+  justify-content: center;
+}
+main {
+  font-size: larger;
+  text-align: center; /* Center the text horizontally */
+  position: absolute; /* Positioning is absolute */
+  top: 50%; /* Move the top edge of the element to the middle of the parent */
+  left: 50%; /* Move the left edge of the element to the middle of the parent */
+  transform: translate(-50%, -50%); /* Adjust the position to center the element */
+}
+
+footer {
+  font-size: larger;
+  text-align: right; /* Center the text horizontally */
+  position: relative; /* Positioning is absolute */
+ /* Move the left edge of the element to the middle of the parent */
+  transform: translate(-50%, -50%);   
+}
