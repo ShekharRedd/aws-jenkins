@@ -5,14 +5,19 @@ pipeline{
         tag = "1.0"
     }
     stages{
+
         stage("check the code") {
-            def imageExists = sh(script: "docker inspect ${image}:${tag}", returnStatus: true) == 0
-            if (imageExists) {
-                echo "Docker image ${image}:${tag} already exists. Skipping build and push."
-                currentBuild.resultIsSkip = true
-            } else {
-                echo "Docker image ${image}:${tag} does not exist. Proceeding with build."
-        }
+            steps{
+                script{
+                    def imageExists = sh(script: "docker inspect ${image}:${tag}", returnStatus: true) == 0
+                    if (imageExists) {
+                        echo "Docker image ${image}:${tag} already exists. Skipping build and push."
+                        currentBuild.resultIsSkip = true
+                    } else {
+                        echo "Docker image ${image}:${tag} does not exist. Proceeding with build."
+                        }
+                    }
+            }
         }
 
         stage("Build react image"){
