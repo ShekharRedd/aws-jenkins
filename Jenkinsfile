@@ -13,7 +13,7 @@ pipeline{
                 // sh "docker push $image"
                 }
             }
-            }
+            
             stage("Build python image"){
             steps{
                 echo "========executing Build python Images========"
@@ -25,6 +25,6 @@ pipeline{
                 // sh "docker push $image"
                 }
             }
-            }
+}
     
-    
+}
