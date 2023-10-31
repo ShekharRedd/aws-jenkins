@@ -4,7 +4,7 @@ pipeline{
         stage("Build react image"){
             steps{
                 
-                withCredewithCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                 sh "cd react && docker build -t my-react:1.0 ."
                 sh 'echo $USER'
                 sh "echo $PASS | docker login -u $USER --password-stdin"
