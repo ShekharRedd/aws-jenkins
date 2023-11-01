@@ -1,11 +1,10 @@
 pipeline{
     agent any
     environment {
-        image = "my-rect"
+        image = "my-react"
         tag = "1.0"
     }
     stages{
-
         stage("check the code") {
             steps{
                 script{
@@ -23,7 +22,7 @@ pipeline{
 
         stage("Build react image"){
             when {
-                expression { currentBuild.resultIsSkip !='ABORTED' }
+                expression { currentBuild.resultIsSkip =='ABORTED' }
             }
             steps{
                 echo "========executing Build react Images========"
