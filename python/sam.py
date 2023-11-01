@@ -7,20 +7,20 @@ CORS(app)
 import mysql.connector 
 
 import configparser
-from retrying import retry
+
 
 config = configparser.ConfigParser()
 config.read('./config.ini')
 
 # @retry(wait_exponential_multiplier=1000, wait_exponential_max=10000, stop_max_attempt_number=5)
-table_created = False
+
+table_created=False
 
 def get_database_connection():
     host = config['DEFAULT']['host']
     mysql_database = config['DEFAULT']['MYSQL_DATABASE']
     mysql_user = config['DEFAULT']['MYSQL_USER']
     mysql_password = config['DEFAULT']['MYSQL_PASSWORD']
-
     conn = mysql.connector.connect(
         host=host,
         user=mysql_user,
@@ -29,7 +29,9 @@ def get_database_connection():
         port=3306
     )
     cursor = conn.cursor()
-    if not table_created:
+    return conn, cursor
+
+if not table_created:
         conn, cursor = get_database_connection()
         check_table_query = "SHOW TABLES LIKE 'sample_employee'"
         cursor.execute(check_table_query)
@@ -51,20 +53,10 @@ def get_database_connection():
             cursor.close()
             conn.close()
             table_created = True
-    return conn, cursor
-
-
 
 @app.route("/")
 def Home():
-
     return "Hello welocome to my world"
-
-
-@app.route("/new")
-def new():
-
-    return "new message hello  welcome to hyderabad"
 
 @app.route("/api/add_data", methods=["POST"])
 def add_data():
