@@ -25,7 +25,7 @@ FROM python:latest
 
 RUN mkdir /home/python 
 
-COPY ./run.py /home/python/
+COPY ./sam.py /home/python/
 
 COPY ./requirements.txt /home/python/
 COPY ./config.ini /home/python/
@@ -38,6 +38,6 @@ WORKDIR /home/python/
 
 RUN  pip install -r requirements.txt
 
-CMD [ "python","run.py" ]
+CMD [ "python","sam.py" ]
 
 # CMD ["dockerize", "-wait", "tcp://react_application_api-mysqlhost-1:3306", "-timeout", "60s", "python", "sam.py"]
