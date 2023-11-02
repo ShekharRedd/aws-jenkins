@@ -1,4 +1,5 @@
-# HOST='192.168.1.214'
+
+#!/bin/bash
 HOST="$1"
 PORT=3306
 
@@ -27,7 +28,7 @@ done
 echo "Successfully run the my sql "
 
 ## running the python container
-docker run -d -p 5003:5003 -e HOST=$HOST --name py --net my-deploy aws-python
+docker run -d -p 5003:5003 -e HOST=$HOST --name py --net my-deploy my-python:3.0
 PORT=5003
 
 while true; do
@@ -37,7 +38,7 @@ while true; do
     if [ $exit_code -eq 0 ]; then
         echo "Port $PORT is open. Proceeding with the next step."
         # deploy react image 
-        docker run -d -p 3000:3000  -e REACT_APP_API_URL=$HOST --name ry --net my-deploy my-react
+        docker run -d -p 3000:3000  -e REACT_APP_API_URL=$HOST --name ry --net my-deploy my-react:2.0
         break
     else
         echo "Port $PORT is closed. Retrying in 5 seconds..."
