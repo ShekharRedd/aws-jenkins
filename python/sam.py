@@ -18,12 +18,13 @@ config.read('./config.ini')
 table_created=False
 
 def get_database_connection():
-    MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
+    mysql_host = os.getenv("MYSQL_HOST", "localhost")
     mysql_database = config['DEFAULT']['MYSQL_DATABASE']
     mysql_user = config['DEFAULT']['MYSQL_USER']
     mysql_password = config['DEFAULT']['MYSQL_PASSWORD']
+    
     conn = mysql.connector.connect(
-        host=MYSQL_HOST,
+        host=mysql_host,
         user=mysql_user,
         password=mysql_password,
         database=mysql_database,

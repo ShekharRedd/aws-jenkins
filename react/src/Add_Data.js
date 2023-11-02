@@ -29,7 +29,10 @@ const Add_Data = () => {
   const Handle_address=(event)=>{
     setAddress(event.target.value)
   }
-  
+  let apiUrl1 = process.env.REACT_APP_API_URL;
+  console.log(apiUrl1)
+  let apiUrl;
+  apiUrl=`http://${apiUrl1}:5003/api/add_data`;   
   const Handle_submit=(event)=>{
     event.preventDefault()
 
@@ -41,11 +44,10 @@ const Add_Data = () => {
       "phone_number":phone_number,
       "address":address
     }
-    let apiUrl = process.env.REACT_APP_API_URL;
-    apiUrl=`http://${apiUrl}:5003/api/add_data`    
+  
+
     const send_to_server=()=>{
     const isConfirmed = window.confirm('Are you sure you want to submit this data?');
-
     if(isConfirmed){
     fetch(apiUrl,{
       method: "POST",

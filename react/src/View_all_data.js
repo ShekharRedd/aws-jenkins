@@ -7,12 +7,14 @@ const View_all_data = () => {
   const [editedData, setEditedData] = useState([]);
   const [viewData, setViewData] = useState([]);
 
-  const [status_confirm,setStatus_confirm]=useState(false)
-  let apiUrl = process.env.REACT_APP_API_URL;
-  apiUrl=`http://${apiUrl}:5003/api/view_data`;
-  console.log(apiUrl)
+  const [status_confirm,setStatus_confirm]=useState(false);
+  let apiUrl1 = process.env.REACT_APP_API_URL;
+  console.log(apiUrl1)
+  let apiUrl;
+  apiUrl=`http://${apiUrl1}:5003/api/view_data`;
+  console.log(apiUrl);
   useEffect(() => {
-    console.log("useefffect state 1")
+    console.log("useefffect state 1");
     // Fetch data from API and initialize   editingStatus and editedData arrays
     fetch(apiUrl, {
       method: "GET",
@@ -65,7 +67,7 @@ const View_all_data = () => {
 
   const send_to_server = (index) => {
     const jsonData = JSON.stringify(editedData[index]);
-
+    apiUrl=`http://${apiUrl1}:5003/api/submit_data`
     fetch(apiUrl, {
       method: "PUT",
       headers: {
@@ -110,7 +112,7 @@ const View_all_data = () => {
     const isConfirmed = window.confirm('Are you sure you want to delete this data?');
     if(isConfirmed){
     const jsonData = JSON.stringify(editedData[rowIndex]);
-    fetch(apiUrl, {
+    fetch(`http://${apiUrl1}:5003/api/delete_data`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
