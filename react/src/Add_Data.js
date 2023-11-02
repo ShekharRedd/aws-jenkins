@@ -8,7 +8,7 @@ const Add_Data = () => {
   const [phone_number,setPhone_number]=useState(0)
   const [address,setAddress]=useState('')
   const [confirm_status,setConfirm_status]=useState('')
-
+  
   const Handle_employee_name=(event)=>{
       setEmployee_name(event.target.value)
   }
@@ -41,11 +41,13 @@ const Add_Data = () => {
       "phone_number":phone_number,
       "address":address
     }
+    let apiUrl = process.env.REACT_APP_API_URL;
+    apiUrl=`http://${apiUrl}:5003/api/add_data`    
     const send_to_server=()=>{
     const isConfirmed = window.confirm('Are you sure you want to submit this data?');
 
     if(isConfirmed){
-    fetch("http://127.0.0.1:5003/api/add_data",{
+    fetch(apiUrl,{
       method: "POST",
       headers: {
         "Content-Type" : "application/json"

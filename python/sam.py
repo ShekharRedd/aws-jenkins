@@ -6,6 +6,7 @@ CORS(app)
 
 import mysql.connector 
 
+import os
 import configparser
 
 
@@ -17,12 +18,12 @@ config.read('./config.ini')
 table_created=False
 
 def get_database_connection():
-    host = config['DEFAULT']['host']
+    MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
     mysql_database = config['DEFAULT']['MYSQL_DATABASE']
     mysql_user = config['DEFAULT']['MYSQL_USER']
     mysql_password = config['DEFAULT']['MYSQL_PASSWORD']
     conn = mysql.connector.connect(
-        host=host,
+        host=MYSQL_HOST,
         user=mysql_user,
         password=mysql_password,
         database=mysql_database,
