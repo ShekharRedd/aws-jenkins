@@ -47,6 +47,7 @@ pipeline {
                 //     // Push the changes to the remote repository
                 //     sh "git push origin develop"
                 // }
+                }
             }
         }
         }
