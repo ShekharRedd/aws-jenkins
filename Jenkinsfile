@@ -1,20 +1,20 @@
 pipeline {
     agent any
-    environment {
-        GIT_USERNAME = credentials('For-github').username
-        GIT_PASSWORD = credentials('For-github').password
-        REPO_URL = 'https://github.com/ShekharRedd/task_project_1.git'
-        FEATURE_BRANCH = 'feature_branch'
-    }
+    // environment {
+    //     GIT_USERNAME = credentials('For-github').username
+    //     GIT_PASSWORD = credentials('For-github').password
+    //     REPO_URL = 'https://github.com/ShekharRedd/task_project_1.git'
+    //     FEATURE_BRANCH = 'feature_branch'
+    // }
     stages {
         stage("checkout the feature branch and perform the unit test"){
             steps{
                 script{
                     
-                    sh "git checkout feature_branch" 
-                    withCredentials([usernamePassword(credentialsId: 'For-github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {                    
+                    
+                    sh "git checkout feature_branch"                    
                     // sh "git pull origin/feature_branch"
-                    sh "git pull ${REPO_URL} ${FEATURE_BRANCH}"
+                    sh "git pull origin feature_branch"
                     // here we have to perform the unit test
                     
 
@@ -26,7 +26,7 @@ pipeline {
                     // } else {
                     //     error "Unit tests failed. Aborting."
                     // }
-                }
+                
             }
         }
         }
@@ -35,18 +35,18 @@ pipeline {
         {
             steps{
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'For-github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
-                    sh "git checkout develop"
+                //     withCredentials([usernamePassword(credentialsId: 'For-github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
+                //     sh "git checkout develop"
 
-                    // sh "git pull origin develop"
-                    sh "git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/your-username/your-repo.git feature_branch"
+                //     // sh "git pull origin develop"
+                //     sh "git pull https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/your-username/your-repo.git feature_branch"
 
-                    // Merge the feature branch into develop
-                    sh "git merge feature_branch"
+                //     // Merge the feature branch into develop
+                //     sh "git merge feature_branch"
 
-                    // Push the changes to the remote repository
-                    sh "git push origin develop"
-                }
+                //     // Push the changes to the remote repository
+                //     sh "git push origin develop"
+                // }
             }
         }
         }
